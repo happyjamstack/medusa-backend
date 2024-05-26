@@ -1,5 +1,6 @@
 const mapKeys = require('./mapKeys.js')
 const fileService = require('./fileService.js')
+const admin = require('./admin.js')
 
 const getEnvFileName =
   (envName) => (
@@ -11,21 +12,10 @@ const getEnvFileName =
 const medusaEnv = require('./setEnv.js')(getEnvFileName('production'))
 
 const plugins =
-  [ `medusa-fulfillment-manual`
-  , `medusa-payment-manual`
+  [ 'medusa-fulfillment-manual'
+  , 'medusa-payment-manual'
   , fileService(medusaEnv)
-  , { resolve: "@medusajs/admin"
-    , options:
-      { autoRebuild: true
-      , serve: false//process.env['DEPLOYMENT_TYPE'] === 'admin' ? true : false
-      , host: medusaEnv['MEDUSA_ADMIN_BACKEND_URL']
-      , port: 443
-      , develop:
-        { open: "false"
-        , port: process.env.ADMIN_APP_PORT
-        }
-      }
-    }
+  , admin(medusaEnv)
   ]
 
 const eventBus =  
