@@ -1,6 +1,7 @@
 const mapKeys = require('./mapKeys.js')
 const fileService = require('./fileService.js')
 const admin = require('./admin.js')
+const { filter, isNotEmpty } = require('ramda')
 
 const getEnvFileName =
   (envName) => (
@@ -35,7 +36,7 @@ const projectConfig = mapKeys
 
 module.exports =
   { projectConfig: {...projectConfig, redis_url: process.env['REDIS_URL']}
-  , plugins
+  , plugins: filter(isNotEmpty)(plugins)
   , modules
   }
 
@@ -48,7 +49,7 @@ console.log('>  medusaEnv:')
 console.log(medusaEnv)
 
 console.log('> plugins:')
-console.log(plugins)
+console.log(filter(isNotEmpty)(plugins))
 /*
 console.log('### process.env    ###')
 console.log(process.env)
