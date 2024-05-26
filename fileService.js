@@ -62,10 +62,24 @@ const pinataFileService =
     }
   )
 
+const supabaseConfigured = (env) => true
+
+const supabaseFileService =
+  (env) => (
+    { resolve: 'medusa-storage-supabase'
+    , options:
+      { referenceID: env['SUPABASE_STORAGE_BUCKET_REF']
+      , serviceKey: env['SUPABASE_SERVICE_ROLE_KEY']
+      , bucketName: env['SUPABASE_BUCKET_NAME']
+      }
+    }
+  )
+
 const fileService = cond(
   [ [ cloudinaryConfigured, cloudinaryFileService ]
   , [ minioConfigured, minioFileService ]
   , [ pinataConfigured, pinataFileService ]
+  , [ supabaseConfigured, supabaseFileService ]
   , [ T, localFileService ]
   ])
 
