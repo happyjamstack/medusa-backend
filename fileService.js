@@ -45,12 +45,20 @@ const localFileService =
   )
 
 const pinataConfigured = 
-  (env) => validateStringMinMax(683)(683)(env['PINATA_API_KEY'])
+  (env) =>
+    validateStringMinMax(683)(683)(env['PINATA_JWT'])
+    && validateStringMinMax(20)(20)(env['PINATA_API_KEY'])
+    && validateStringMinMax(64)(64)(env['PINATA_API_SECRET'])
 
 const pinataFileService =
   (env) => (
     { resolve: 'medusa-file-pinata'
-    , options: { api_key: env['PINATA_API_KEY']}
+    , options:
+      { pinata_api_key: env['PINATA_API_KEY']
+      , pinata_api_secret: env['PINATA_API_SECRET']
+      , pinata_jwt: env['PINATA_JWT']
+      , pinata_gateway: env['PINATA_GATEWAY']
+      }
     }
   )
 
