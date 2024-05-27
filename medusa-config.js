@@ -1,5 +1,6 @@
 const mapKeys = require('./mapKeys.js')
 const fileService = require('./fileService.js')
+const paymentService = require('./paymentService.js')
 const admin = require('./admin.js')
 const { filter, isNotEmpty } = require('ramda')
 
@@ -14,7 +15,8 @@ const medusaEnv = require('./setEnv.js')(getEnvFileName('production'))
 
 const plugins =
   [ 'medusa-fulfillment-manual'
-  , 'medusa-payment-manual'
+//  , 'medusa-payment-manual'
+  , paymentService(medusaEnv)
   , fileService(medusaEnv)
   , admin(medusaEnv)
   ]
