@@ -1,10 +1,9 @@
 const admin =
-  (env) => 
-    ( env['DEPLOYMENT_TYPE'] === 'admin'
-    ? { resolve: "@medusajs/admin"
+  (env) => (
+    { resolve: "@medusajs/admin"
       , options:
         { autoRebuild: true
-        , serve: false//process.env['DEPLOYMENT_TYPE'] === 'admin' ? true : false
+        , serve: env['DEPLOY_ADMIN'] === 'yes' ? true : false
         , host: env['MEDUSA_ADMIN_BACKEND_URL']
         , port: 443
         , develop:
@@ -12,8 +11,6 @@ const admin =
           , port: env['ADMIN_APP_PORT']
           }
         }
-      }
-    : {}
-    )
+    })
     
 module.exports = admin

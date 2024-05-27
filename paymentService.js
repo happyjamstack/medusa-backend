@@ -3,7 +3,7 @@ const { cond, T } = require('ramda')
 
 const stripeConfigured =
   (env) =>
-    validateStringMinMax(1)(200)(env['STRIPE_API_KEY'])
+    validateStringMinMax(1)(300)(env['STRIPE_API_KEY'])
 //    && validateStringMinMax(1)(200)(env['STRIPE_WEBHOOK_SECRET'])
 
 const stripePaymentService =
